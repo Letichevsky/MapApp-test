@@ -10,6 +10,7 @@ const Map = () => {
 
   const [tripData, setTripData] = useState<ITripData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [markersVisible, setMarkersVisible] = useState(false);
 
   const { activeDayId } = useActiveDay();
 
@@ -30,6 +31,20 @@ const Map = () => {
 
     loadTripData();
   }, []);
+
+  useEffect(() => {
+    if (activeDayId) {
+      const timer = setTimeout(() => {
+        setMarkersVisible(true);
+      }, 300);
+      return () => {
+        clearTimeout(timer);
+        setMarkersVisible(false);
+      };
+    } else {
+      setMarkersVisible(false);
+    }
+  }, [activeDayId]);
 
   const mapContainerStyle = {
     width: "100%",
@@ -62,13 +77,18 @@ const Map = () => {
           }}
         >
           {!loading &&
-            activeActivities.map((activity) => (
+            activeActivities.map((activity, index) => (
               <OverlayView
                 key={activity.id}
                 position={activity.coords}
                 mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
               >
-                <MapMarker activity={activity} onClick={handleMarkerClick} />
+                <MapMarker
+                  activity={activity}
+                  onClick={handleMarkerClick}
+                  index={index}
+                  isVisible={markersVisible}
+                />
               </OverlayView>
             ))}
         </GoogleMap>

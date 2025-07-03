@@ -1,12 +1,28 @@
+import { motion } from "framer-motion";
 import type { IActivity } from "@/features/trip/utils/types";
 
 interface ActivityCardProps {
   activity: IActivity;
+  index?: number;
+  isVisible?: boolean;
 }
 
-const ActivityCard = ({ activity }: ActivityCardProps) => {
+const ActivityCard = ({
+  activity,
+  index = 0,
+  isVisible = false,
+}: ActivityCardProps) => {
   return (
-    <div className="bg-white/30 rounded-lg shadow-sm border border-gray-200 hover:shadow-md hover:scale-103 transition-all duration-300 overflow-hidden cursor-pointer">
+    <motion.div
+      className="bg-gray-50 rounded-lg border-gray-200 hover:bg-gray-100 transition-all duration-300 overflow-hidden cursor-pointer"
+      initial={{ opacity: 0 }}
+      animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
+      transition={{
+        duration: 0.3,
+        delay: index * 0.15,
+        ease: "easeOut",
+      }}
+    >
       <div className="flex items-start space-x-3">
         <div className="flex-shrink-0">
           <img
@@ -26,7 +42,7 @@ const ActivityCard = ({ activity }: ActivityCardProps) => {
           </p>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

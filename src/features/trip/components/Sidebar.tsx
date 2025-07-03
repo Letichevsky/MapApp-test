@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchTripData } from "@/features/trip/api/api";
 import type { ITripData } from "@/features/trip/utils/types";
-import DaySection from "./DaySection";
+import DaySection from "@/features/trip/components/DaySection";
 
 const Sidebar = () => {
   const [tripData, setTripData] = useState<ITripData | null>(null);
