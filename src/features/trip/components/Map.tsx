@@ -1,36 +1,17 @@
 import { GoogleMap, LoadScript, OverlayView } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
-import { fetchTripData } from "@/features/trip/api/api";
 import { useActiveDay } from "@/features/trip/hooks/useActiveDay";
-import type { ITripData, IActivity } from "@/features/trip/utils/types";
+import { useTripData } from "@/features/trip/hooks/useTripData";
+import type { IActivity } from "@/features/trip/utils/types";
 import MapMarker from "@/features/trip/components/MapMarker";
 
 const Map = () => {
   const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-  const [tripData, setTripData] = useState<ITripData | null>(null);
-  const [loading, setLoading] = useState(true);
   const [markersVisible, setMarkersVisible] = useState(false);
 
+  const { tripData, loading } = useTripData();
   const { activeDayId } = useActiveDay();
-
-  useEffect(() => {
-    const loadTripData = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchTripData();
-        if (data) {
-          setTripData(data);
-        }
-      } catch (err) {
-        console.error("Помилка при завантаженні даних поїздки:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadTripData();
-  }, []);
 
   useEffect(() => {
     if (activeDayId) {

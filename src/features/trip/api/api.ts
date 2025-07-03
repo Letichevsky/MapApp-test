@@ -12,21 +12,9 @@ export async function fetchTripData(): Promise<ITripData | null> {
 
     const data: ITripData = await response.json();
 
-    console.log("Данные поездки:", data);
-    console.log("Название поездки:", data.trip_title);
-    console.log("Количество дней:", data.days.length);
-
-    data.days.forEach((day, index) => {
-      console.log(`День ${index + 1}: ${day.title}`);
-      console.log(`Количество активностей: ${day.activities.length}`);
-      day.activities.forEach((activity) => {
-        console.log(`  - ${activity.name}: ${activity.description}`);
-      });
-    });
-
     return data;
   } catch (error) {
-    console.error("Ошибка при получении данных поездки:", error);
+    console.error("Помилка при отриманні даних поїздки:", error);
     return null;
   }
 }

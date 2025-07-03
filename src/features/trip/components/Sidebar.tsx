@@ -1,35 +1,10 @@
-import { useEffect, useState } from "react";
-import { fetchTripData } from "@/features/trip/api/api";
-import type { ITripData } from "@/features/trip/utils/types";
+import { useTripData } from "@/features/trip/hooks/useTripData";
 import SidebarSkeleton from "@/features/trip/components/SidebarSkeleton";
 import SidebarState from "@/features/trip/components/SidebarState";
 import SidebarContent from "@/features/trip/components/SidebarContent";
 
 const Sidebar = () => {
-  const [tripData, setTripData] = useState<ITripData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const loadTripData = async () => {
-      try {
-        setLoading(true);
-        const data = await fetchTripData();
-        if (data) {
-          setTripData(data);
-        } else {
-          setError("Не вдалося завантажити дані поїздки");
-        }
-      } catch (err) {
-        setError("Помилка при завантаженні даних");
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadTripData();
-  }, []);
+  const { tripData, loading, error } = useTripData();
 
   if (loading) {
     return <SidebarSkeleton />;
