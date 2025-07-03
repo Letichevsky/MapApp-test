@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
+import { useHover } from "@/features/trip/hooks/useHover";
 import type { IActivity } from "@/features/trip/utils/types";
+import { cn } from "@/utils/utils";
 
 interface MapMarkerProps {
   activity: IActivity;
@@ -14,6 +16,17 @@ const MapMarker = ({
   index = 0,
   isVisible = false,
 }: MapMarkerProps) => {
+  const { hoveredActivityId, setHoveredActivityId } = useHover();
+  const isHovered = hoveredActivityId === activity.id;
+
+  const handleMouseEnter = () => {
+    setHoveredActivityId(activity.id);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredActivityId(null);
+  };
+
   return (
     <motion.div
       className="relative cursor-pointer group"
@@ -24,10 +37,16 @@ const MapMarker = ({
         delay: index * 0.2,
         ease: [0.175, 0.885, 0.32, 1.275],
       }}
-      whileHover={{ scale: 1.1 }}
       onClick={() => onClick?.(activity)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      <div className="relative w-12 h-12 rounded-full overflow-hidden border-3 border-white shadow-lg transition-transform duration-300 ease-in-out">
+      <div
+        className={cn(
+          "relative w-12 h-12 rounded-full overflow-hidden border-3 border-white shadow-lg transition-all duration-300 ease-in-out",
+          isHovered ? "scale-110 border-blue-400 shadow-xl z-50" : ""
+        )}
+      >
         <img
           src={activity.photo_url}
           alt={activity.name}
@@ -35,11 +54,28 @@ const MapMarker = ({
           loading="lazy"
         />
       </div>
-      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-2 bg-black/20 rounded-full blur-sm transition-transform duration-300 ease-in-out" />
+      <div
+        className={cn(
+          "absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-2 rounded-full blur-sm transition-all duration-300 ease-in-out",
+          isHovered ? "bg-blue-400/30 w-10" : "bg-black/20"
+        )}
+      />
 
-      <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg text-xs font-medium text-gray-800 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+      <div
+        className={cn(
+          "absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 backdrop-blur-sm rounded-lg shadow-lg text-xs font-medium whitespace-nowrap transition-all duration-300 pointer-events-none",
+          isHovered
+            ? "bg-blue-500/95 text-white opacity-100"
+            : "bg-white/95 text-gray-800 opacity-0 group-hover:opacity-100"
+        )}
+      >
         {activity.name}
-        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-white/95" />
+        <div
+          className={cn(
+            "absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent",
+            isHovered ? "border-t-blue-500/95" : "border-t-white/95"
+          )}
+        />
       </div>
     </motion.div>
   );
