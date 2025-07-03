@@ -9,14 +9,14 @@
           "id": 101,
           "name": "Фонтан ді Треві",
           "description": "Киньте монетку, щоб повернутися.",
-          "photo_url": "https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=500&q=80",
+          "photo_url": "https://i0.wp.com/mandry.club/wp-content/uploads/2020/05/trevi-fountain.jpg?fit=1280%2C850&ssl=1",
           "coords": { "lat": 41.9009, "lng": 12.4833 }
         },
         {
           "id": 102,
           "name": "Пантеон",
           "description": "Храм усіх богів з унікальним куполом.",
-          "photo_url": "https://images.unsplash.com/photo-1589122452332-13239a4d29e3?w=500&q=80",
+          "photo_url": "https://ethnomir.ru/upload/medialibrary/340/1.jpg",
           "coords": { "lat": 41.8986, "lng": 12.4768 }
         }
       ]
@@ -36,7 +36,7 @@
           "id": 202,
           "name": "Римський Форум",
           "description": "Серце стародавнього міста.",
-          "photo_url": "https://images.unsplash.com/photo-1543042129-1014a154e5a3?w=500&q=80",
+          "photo_url": "https://pohcdn.com/sites/default/files/styles/paragraph__hero_banner__hb_image__1880bp/public/hero_banner/roman-forum.jpg",
           "coords": { "lat": 41.8925, "lng": 12.4853 }
         }
       ]
