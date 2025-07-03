@@ -22,7 +22,7 @@ const DaySection = ({ day, dayNumber }: DaySectionProps) => {
 
   return (
     <motion.div
-      className="mb-4 border border-gray-200 rounded-lg overflow-hidden"
+      className="mb-4 bg-white/70 backdrop-blur-sm border border-slate-200/50 rounded-2xl overflow-hidden shadow-lg"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -32,21 +32,20 @@ const DaySection = ({ day, dayNumber }: DaySectionProps) => {
       }}
     >
       <div
-        className="flex items-center justify-between p-4 bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors duration-200"
+        className="flex items-center justify-between p-5 bg-gradient-to-r from-slate-50 to-blue-50 cursor-pointer transition-all duration-200 border-b border-slate-200/30"
         onClick={handleToggle}
       >
         <div>
-          <h3 className="text-lg font-semibold text-gray-800">
-            День {dayNumber}
-          </h3>
-          <p className="text-gray-600 text-sm">{day.title}</p>
+          <h3 className="text-lg font-bold text-slate-700">День {dayNumber}</h3>
+          <p className="text-slate-600 text-sm font-medium">{day.title}</p>
         </div>
         <motion.div
           animate={{ rotate: isActive ? 180 : 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
+          className="p-2 rounded-full bg-white/50 hover:bg-white/80 transition-colors duration-200"
         >
           <svg
-            className="w-5 h-5 text-gray-600"
+            className="w-5 h-5 text-slate-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -74,8 +73,8 @@ const DaySection = ({ day, dayNumber }: DaySectionProps) => {
             }}
             className="overflow-hidden"
           >
-            <div className="p-4 bg-white">
-              <div className="space-y-3">
+            <div className="p-5 bg-gradient-to-br from-white/80 to-slate-50/80 backdrop-blur-sm">
+              <div className="space-y-4">
                 {day.activities.map((activity, index) => (
                   <ActivityCard
                     key={activity.id}

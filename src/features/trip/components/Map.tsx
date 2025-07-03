@@ -23,7 +23,7 @@ const Map = () => {
           setTripData(data);
         }
       } catch (err) {
-        console.error("Ошибка при загрузке данных поездки:", err);
+        console.error("Помилка при завантаженні даних поїздки:", err);
       } finally {
         setLoading(false);
       }
@@ -57,7 +57,7 @@ const Map = () => {
   };
 
   const handleMarkerClick = (activity: IActivity) => {
-    console.log("Клик по маркеру:", activity.name);
+    console.log("Клік по маркеру:", activity.name);
   };
 
   const activeActivities =

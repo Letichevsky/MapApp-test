@@ -27,8 +27,10 @@ const ActivityCard = ({
 
   return (
     <motion.div
-      className={`bg-gray-50 rounded-lg border-gray-200 transition-all duration-300 overflow-hidden cursor-pointer ${
-        isHovered ? "bg-blue-50 border-blue-300 shadow-lg" : "hover:bg-gray-100"
+      className={`bg-white/60 backdrop-blur-sm rounded-xl border border-slate-200/50 transition-all duration-300 overflow-hidden cursor-pointer shadow-sm hover:shadow-lg ${
+        isHovered
+          ? "bg-gradient-to-r from-blue-50/80 to-indigo-50/80 border-blue-300/50 shadow-xl scale-[1.02]"
+          : "hover:bg-white/80 hover:border-slate-300/50"
       }`}
       initial={{ opacity: 0 }}
       animate={isVisible ? { opacity: 1 } : { opacity: 0 }}
@@ -40,24 +42,24 @@ const ActivityCard = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div
-        className={cn(
-          "flex items-start space-x-3 transition-all duration-300 ease-in-out",
-          isHovered ? "bg-blue-400" : ""
-        )}
-      >
+      <div className="flex items-start space-x-4 transition-all duration-300 ease-in-out">
         <div className="flex-shrink-0">
           <img
             src={activity.photo_url}
             alt={activity.name}
-            className="w-64 h-40 object-cover transition-all duration-300 hover:scale-105 hover:ml-[-2.5%]"
+            className={cn(
+              "w-64 h-40 object-cover rounded-l-xl transition-all duration-300 shadow-md",
+              isHovered ? "scale-105" : ""
+            )}
             loading="lazy"
           />
         </div>
 
-        <div className="flex-1 min-w-0 py-4 px-2">
-          <h4 className="text-sm font-medium mb-1">{activity.name}</h4>
-          <p className="text-xs text-gray-600 leading-relaxed">
+        <div className="flex-1 min-w-0 py-4 px-3">
+          <h4 className="text-sm font-bold text-slate-800 mb-2 leading-tight">
+            {activity.name}
+          </h4>
+          <p className="text-xs text-slate-600 leading-relaxed font-medium">
             {activity.description}
           </p>
         </div>
