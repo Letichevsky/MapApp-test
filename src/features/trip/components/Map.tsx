@@ -1,13 +1,17 @@
 import { GoogleMap, LoadScript, OverlayView } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import { fetchTripData } from "@/features/trip/api/api";
+import { useActiveDay } from "@/features/trip/hooks/useActiveDay";
 import type { ITripData, IActivity } from "@/features/trip/utils/types";
 import MapMarker from "@/features/trip/components/MapMarker";
 
 const Map = () => {
   const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
   const [tripData, setTripData] = useState<ITripData | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const { activeDayId } = useActiveDay();
 
   useEffect(() => {
     const loadTripData = async () => {
@@ -39,11 +43,10 @@ const Map = () => {
 
   const handleMarkerClick = (activity: IActivity) => {
     console.log("Клик по маркеру:", activity.name);
-    // Здесь можно добавить логику для выделения активности в сайдбаре
   };
 
-  // Получаем все активности из всех дней
-  const allActivities = tripData?.days.flatMap((day) => day.activities) || [];
+  const activeActivities =
+    tripData?.days.find((day) => day.id === activeDayId)?.activities || [];
 
   return (
     <div className="w-[60%] h-full">
@@ -59,7 +62,7 @@ const Map = () => {
           }}
         >
           {!loading &&
-            allActivities.map((activity) => (
+            activeActivities.map((activity) => (
               <OverlayView
                 key={activity.id}
                 position={activity.coords}
