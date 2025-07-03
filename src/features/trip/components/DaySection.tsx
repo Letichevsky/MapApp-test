@@ -26,7 +26,7 @@ const DaySection = ({ day, dayNumber }: DaySectionProps) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.5,
+        duration: 0.3,
         delay: dayNumber * 0.1,
         ease: "easeOut",
       }}
@@ -37,7 +37,7 @@ const DaySection = ({ day, dayNumber }: DaySectionProps) => {
       >
         <div>
           <h3 className="text-lg font-bold text-slate-700">День {dayNumber}</h3>
-          <p className="text-slate-600 text-sm font-medium">{day.title}</p>
+          <p className="text-slate-600 text-sm font-medium pr-4">{day.title}</p>
         </div>
         <motion.div
           animate={{ rotate: isActive ? 180 : 0 }}

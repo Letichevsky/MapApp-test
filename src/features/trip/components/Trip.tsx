@@ -7,7 +7,7 @@ const Trip = () => {
   return (
     <ActiveDayProvider>
       <HoverProvider>
-        <div className="flex w-full h-screen">
+        <div className="flex sm:flex-row flex-col-reverse w-full h-screen">
           <Sidebar />
           <Map />
         </div>

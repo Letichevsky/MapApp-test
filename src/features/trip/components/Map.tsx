@@ -64,12 +64,12 @@ const Map = () => {
     tripData?.days.find((day) => day.id === activeDayId)?.activities || [];
 
   return (
-    <div className="w-[60%] h-full">
+    <div className="w-full sm:w-[60%] h-[60svh] sm:h-full">
       <LoadScript googleMapsApiKey={GOOGLE_MAPS_API_KEY}>
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           center={center}
-          zoom={12}
+          zoom={13}
           options={{
             mapTypeControl: true,
             streetViewControl: true,

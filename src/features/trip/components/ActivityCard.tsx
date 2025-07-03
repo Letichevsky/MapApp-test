@@ -42,20 +42,20 @@ const ActivityCard = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="flex items-start space-x-4 transition-all duration-300 ease-in-out">
-        <div className="flex-shrink-0">
+      <div className="flex items-start flex-col xl:flex-row space-x-4 transition-all duration-300 ease-in-out">
+        <div className="w-full xl:w-64 flex-shrink-0">
           <img
             src={activity.photo_url}
             alt={activity.name}
             className={cn(
-              "w-64 h-40 object-cover rounded-l-xl transition-all duration-300 shadow-md",
+              "min-w-full xl:w-64 h-40 object-cover rounded-l-xl transition-all duration-300 shadow-md",
               isHovered ? "scale-105" : ""
             )}
             loading="lazy"
           />
         </div>
 
-        <div className="flex-1 min-w-0 py-4 px-3">
+        <div className="flex-1 py-4 px-3">
           <h4 className="text-sm font-bold text-slate-800 mb-2 leading-tight">
             {activity.name}
           </h4>
