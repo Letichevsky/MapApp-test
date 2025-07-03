@@ -54,29 +54,6 @@ const MapMarker = ({
           loading="lazy"
         />
       </div>
-      <div
-        className={cn(
-          "absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-2 rounded-full blur-sm transition-all duration-300 ease-in-out",
-          isHovered ? "bg-blue-400/30 w-10" : "bg-black/20"
-        )}
-      />
-
-      <div
-        className={cn(
-          "absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1 backdrop-blur-sm rounded-lg shadow-lg text-xs font-medium whitespace-nowrap transition-all duration-300 pointer-events-none",
-          isHovered
-            ? "bg-blue-500/95 text-white opacity-100"
-            : "bg-white/95 text-gray-800 opacity-0 group-hover:opacity-100"
-        )}
-      >
-        {activity.name}
-        <div
-          className={cn(
-            "absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent",
-            isHovered ? "border-t-blue-500/95" : "border-t-white/95"
-          )}
-        />
-      </div>
     </motion.div>
   );
 };
