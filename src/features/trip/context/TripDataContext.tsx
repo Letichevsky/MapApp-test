@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { fetchTripData } from "@/features/trip/api/api";
 import type { ITripData } from "@/features/trip/utils/types";
-import { TripDataContext } from "./TripDataContextDef";
+import { TripDataContext } from "@/features/trip/context/TripDataContextDef";
 
 interface TripDataProviderProps {
   children: ReactNode;

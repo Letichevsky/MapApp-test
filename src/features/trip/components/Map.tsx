@@ -1,17 +1,21 @@
 import { GoogleMap, LoadScript, OverlayView } from "@react-google-maps/api";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useActiveDay } from "@/features/trip/hooks/useActiveDay";
 import { useTripData } from "@/features/trip/hooks/useTripData";
+import { useZoom } from "@/features/trip/hooks/useZoom";
 import type { IActivity } from "@/features/trip/utils/types";
+import { smoothZoomToActivity } from "@/features/trip/utils/zoomUtils";
 import MapMarker from "@/features/trip/components/MapMarker";
 
 const Map = () => {
   const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
   const [markersVisible, setMarkersVisible] = useState(false);
+  const mapRef = useRef<google.maps.Map | null>(null);
 
   const { tripData, loading } = useTripData();
   const { activeDayId } = useActiveDay();
+  const { center, zoom, shouldZoom, setSmoothZoomFunction } = useZoom();
 
   useEffect(() => {
     if (activeDayId) {
@@ -32,13 +36,29 @@ const Map = () => {
     height: "100%",
   };
 
-  const center = {
-    lat: 41.8925,
-    lng: 12.4853,
-  };
-
   const handleMarkerClick = (activity: IActivity) => {
     console.log("Клік по маркеру:", activity.name);
+  };
+
+  const onMapLoad = (map: google.maps.Map) => {
+    mapRef.current = map;
+    setSmoothZoomFunction(handleSmoothZoomToActivity);
+  };
+
+  useEffect(() => {
+    if (shouldZoom && mapRef.current) {
+      mapRef.current.panTo(center);
+      mapRef.current.setZoom(zoom);
+    }
+  }, [shouldZoom, center, zoom]);
+
+  const handleSmoothZoomToActivity = (activity: IActivity) => {
+    if (mapRef.current) {
+      smoothZoomToActivity({
+        map: mapRef.current,
+        activity,
+      });
+    }
   };
 
   const activeActivities =
@@ -50,7 +70,8 @@ const Map = () => {
         <GoogleMap
           mapContainerStyle={mapContainerStyle}
           center={center}
-          zoom={13}
+          zoom={zoom}
+          onLoad={onMapLoad}
           options={{
             mapTypeControl: true,
             streetViewControl: true,

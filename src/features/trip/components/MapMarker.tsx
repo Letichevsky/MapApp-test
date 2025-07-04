@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useHover } from "@/features/trip/hooks/useHover";
+import { useZoom } from "@/features/trip/hooks/useZoom";
 import type { IActivity } from "@/features/trip/utils/types";
 import { cn } from "@/utils/utils";
 
@@ -17,6 +18,7 @@ const MapMarker = ({
   isVisible = false,
 }: MapMarkerProps) => {
   const { hoveredActivityId, setHoveredActivityId } = useHover();
+  const { smoothZoomToActivity } = useZoom();
   const isHovered = hoveredActivityId === activity.id;
 
   const handleMouseEnter = () => {
@@ -37,7 +39,11 @@ const MapMarker = ({
         delay: index * 0.2,
         ease: [0.175, 0.885, 0.32, 1.275],
       }}
-      onClick={() => onClick?.(activity)}
+      onClick={() => {
+        console.log("MapMarker clicked:", activity.name);
+        onClick?.(activity);
+        smoothZoomToActivity(activity);
+      }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
